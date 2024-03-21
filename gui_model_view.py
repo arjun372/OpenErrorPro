@@ -246,10 +246,7 @@ class ModelView(QtWidgets.QGraphicsView):
     def load(self):
         """@brief load from xml action function"""
         dialog = QtWidgets.QFileDialog()
-        dialog.setFilter("*.xml")
-        dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptOpen)
-        dialog.setFileMode(QtWidgets.QFileDialog.ExistingFile)
-        fname = dialog.getOpenFileName()
+        fname = dialog.getOpenFileName(self, "Open XML", "", "XML files (*.xml)")
         if fname[0]:
             self.go_top()
             self.main_window.command_le.setText(str("xml.load(model, '" + fname[0] + "')"))
