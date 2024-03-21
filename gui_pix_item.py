@@ -1,14 +1,14 @@
 """
 ErrorPro V6.
-PySide GUI pix item class.
+PySide6 GUI pix item class.
 """
 
 import math
 
-from PySide import QtGui
-from PySide import QtCore
+from PySide6 import QtWidgets, QtWidgets
+from PySide6 import QtCore
 
-class PixItem(QtGui.QGraphicsPixmapItem):
+class PixItem(QtWidgets.QGraphicsPixmapItem):
     """@brief Pix item class for interection with model components"""
 
     def __init__(self, pixmap, main_window):
@@ -54,7 +54,7 @@ class PixItem(QtGui.QGraphicsPixmapItem):
         el_name = self.__over_element(event.pos())
         if el_name:
             self.model_view.selected_node = ['element', el_name]
-            menu = QtGui.QMenu(self.model_view)
+            menu = QtWidgets.QMenu(self.model_view)
             element = self.main_window.model.elements[el_name]
             if ((len(element['cf_outputs']) > 1) or \
                 (element['cf_prism_commands'])) or \
@@ -67,7 +67,7 @@ class PixItem(QtGui.QGraphicsPixmapItem):
             menu.addAction(self.model_view.actions["update_repetitions"])
             if not element['sub_model']:
                 menu.addAction(self.model_view.actions["create_sub_model"])
-            remove_menu = QtGui.QMenu("&Remove")
+            remove_menu = QtWidgets.QMenu("&Remove")
             remove_menu.addAction(self.model_view.actions["remove_element"])
             if element['cf_outputs']:
                 remove_menu.addAction(self.model_view.actions["remove_control_flow"])
@@ -76,27 +76,27 @@ class PixItem(QtGui.QGraphicsPixmapItem):
             if element['sub_model']:
                 remove_menu.addAction(self.model_view.actions["remove_sub_model"])
             menu.addMenu(remove_menu)
-            menu.exec_(QtGui.QCursor.pos())
+            menu.exec_(QtWidgets.QCursor.pos())
             event.accept()
             return
         d_name = self.__over_data(event.pos())
         if d_name:
             self.model_view.selected_node = ['data', d_name]
-            menu = QtGui.QMenu(self.model_view)
+            menu = QtWidgets.QMenu(self.model_view)
             menu.addAction(self.model_view.actions["update_values"])
-            remove_menu = QtGui.QMenu("&Remove")
+            remove_menu = QtWidgets.QMenu("&Remove")
             remove_menu.addAction(self.model_view.actions["remove_data"])
             if self.main_window.model.data[d_name]['df_outputs']:
                 remove_menu.addAction(self.model_view.actions["remove_data_flow"])
             menu.addMenu(remove_menu)
-            menu.exec_(QtGui.QCursor.pos())
+            menu.exec_(QtWidgets.QCursor.pos())
             event.accept()
             return
         f_name = self.__over_failure(event.pos())
         if f_name:
             self.model_view.selected_node = ['failure', f_name]
-            menu = QtGui.QMenu(self.model_view)
-            compute_menu = QtGui.QMenu("&Compute")
+            menu = QtWidgets.QMenu(self.model_view)
+            compute_menu = QtWidgets.QMenu("&Compute")
             compute_menu.addAction(self.model_view.actions["compute_P_single"])
             compute_menu.addAction(self.model_view.actions["compute_MTTF"])
             compute_menu.addSeparator()
@@ -106,7 +106,7 @@ class PixItem(QtGui.QGraphicsPixmapItem):
             menu.addMenu(compute_menu)
             menu.addAction(self.model_view.actions["update_failure"])
             menu.addAction(self.model_view.actions["remove_failure"])
-            menu.exec_(QtGui.QCursor.pos())
+            menu.exec_(QtWidgets.QCursor.pos())
             event.accept()
             return
         event.ignore()
@@ -177,13 +177,13 @@ class PixItem(QtGui.QGraphicsPixmapItem):
                     self.to_node = ['data', d_name, pos]
                 else:
                     self.to_node = None
-            painter = QtGui.QPainter()
+            painter = QtWidgets.QPainter()
             pixmap = self.main_window.model_view.pixmap.copy()
             painter.begin(pixmap)
-            pen = QtGui.QPen(QtCore.Qt.black, 2, QtCore.Qt.SolidLine)
+            pen = QtWidgets.QPen(QtCore.Qt.black, 2, QtCore.Qt.SolidLine)
             if self.to_node:
                 if self.from_node[0] == 'data' or self.to_node[0] == 'data':
-                    pen = QtGui.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
+                    pen = QtWidgets.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
                 self.__draw_arrow(painter, pen, \
                     self.from_node[2][0] + self.from_node[2][4]/2, \
                     self.from_node[2][1] + self.from_node[2][5]/2, \
@@ -191,7 +191,7 @@ class PixItem(QtGui.QGraphicsPixmapItem):
                     self.to_node[2][1] + self.to_node[2][5]/2)
             else:
                 if self.from_node[0] == 'data':
-                    pen = QtGui.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
+                    pen = QtWidgets.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
                 self.__draw_arrow(painter, pen, \
                     self.from_node[2][0] + self.from_node[2][4]/2, \
                     self.from_node[2][1] + self.from_node[2][5]/2, \
