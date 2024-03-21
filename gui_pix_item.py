@@ -178,13 +178,13 @@ class PixItem(QtWidgets.QGraphicsPixmapItem):
                     self.to_node = ['data', d_name, pos]
                 else:
                     self.to_node = None
-            painter = QtWidgets.QPainter()
+            painter = QtGui.QPainter()
             pixmap = self.main_window.model_view.pixmap.copy()
             painter.begin(pixmap)
-            pen = QtWidgets.QPen(QtCore.Qt.black, 2, QtCore.Qt.SolidLine)
+            pen = QtGui.QPen(QtCore.Qt.black, 2, QtCore.Qt.SolidLine)
             if self.to_node:
                 if self.from_node[0] == 'data' or self.to_node[0] == 'data':
-                    pen = QtWidgets.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
+                    pen = QtGui.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
                 self.__draw_arrow(painter, pen, \
                                   self.from_node[2][0] + self.from_node[2][4] / 2, \
                                   self.from_node[2][1] + self.from_node[2][5] / 2, \
@@ -192,7 +192,7 @@ class PixItem(QtWidgets.QGraphicsPixmapItem):
                                   self.to_node[2][1] + self.to_node[2][5] / 2)
             else:
                 if self.from_node[0] == 'data':
-                    pen = QtWidgets.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
+                    pen = QtGui.QPen(QtCore.Qt.blue, 2, QtCore.Qt.SolidLine)
                 self.__draw_arrow(painter, pen, \
                                   self.from_node[2][0] + self.from_node[2][4] / 2, \
                                   self.from_node[2][1] + self.from_node[2][5] / 2, \
